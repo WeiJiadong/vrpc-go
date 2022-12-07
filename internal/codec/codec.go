@@ -65,7 +65,6 @@ func (c *VrpcMsg) Marshal() ([]byte, error) {
 	data = append(data, c.CalleeMethodNameLen)
 	data = append(data, []byte(c.CalleeServerName)...)
 	data = append(data, []byte(c.CalleeMethodName)...)
-
 	data = append(data, val...)
 	data = append(data, c.Body...)
 	return data, nil
