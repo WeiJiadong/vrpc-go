@@ -1,6 +1,7 @@
 package server
 
 import (
+	"net/http"
 	"sync"
 
 	"github.com/WeiJiadong/vrpc-go/internal/compress"
@@ -10,6 +11,7 @@ import (
 // HttpServer http server定义
 type HttpServer struct {
 	opt *HttpServerOpt
+	http.Server
 }
 
 // HttpServerOpt http server选项参数
