@@ -1,9 +1,12 @@
 package queue
 
 import (
+	"context"
 	"sync"
 	"testing"
 	"time"
+
+	"gopkg.in/go-playground/assert.v1"
 )
 
 func TestQueue_Put(t *testing.T) {
@@ -15,13 +18,15 @@ func TestQueue_Put(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			q.Put(i, time.Second)
+			ctx, _ := context.WithTimeout(context.TODO(), time.Second)
+			assert.Equal(t, q.Put(ctx, i), nil)
 		}()
 		// 消费者
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			q.Get(time.Second)
+			ctx, _ := context.WithTimeout(context.TODO(), time.Second)
+			q.Get(ctx)
 		}()
 	}
 
